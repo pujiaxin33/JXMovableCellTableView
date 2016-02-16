@@ -1,0 +1,535 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		194574811C71D8480093838F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574801C71D8480093838F /* main.m */; };
+		194574841C71D8480093838F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574831C71D8480093838F /* AppDelegate.m */; };
+		194574871C71D8480093838F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574861C71D8480093838F /* ViewController.m */; };
+		1945748A1C71D8480093838F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 194574881C71D8480093838F /* Main.storyboard */; };
+		1945748C1C71D8480093838F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1945748B1C71D8480093838F /* Assets.xcassets */; };
+		1945748F1C71D8480093838F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1945748D1C71D8480093838F /* LaunchScreen.storyboard */; };
+		1945749A1C71D8480093838F /* JXMovableCellTableViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574991C71D8480093838F /* JXMovableCellTableViewTests.m */; };
+		194574A51C71D8480093838F /* JXMovableCellTableViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574A41C71D8480093838F /* JXMovableCellTableViewUITests.m */; };
+		194574B41C71D86C0093838F /* JXMovableCellTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574B31C71D86C0093838F /* JXMovableCellTableView.m */; };
+		194574B71C73217A0093838F /* CustomMoveCellTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574B61C73217A0093838F /* CustomMoveCellTableView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		194574961C71D8480093838F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 194574741C71D8480093838F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1945747B1C71D8480093838F;
+			remoteInfo = JXMovableCellTableView;
+		};
+		194574A11C71D8480093838F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 194574741C71D8480093838F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1945747B1C71D8480093838F;
+			remoteInfo = JXMovableCellTableView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1945747C1C71D8480093838F /* JXMovableCellTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JXMovableCellTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		194574801C71D8480093838F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		194574821C71D8480093838F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		194574831C71D8480093838F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		194574851C71D8480093838F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		194574861C71D8480093838F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		194574891C71D8480093838F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1945748B1C71D8480093838F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1945748E1C71D8480093838F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		194574901C71D8480093838F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		194574951C71D8480093838F /* JXMovableCellTableViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JXMovableCellTableViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		194574991C71D8480093838F /* JXMovableCellTableViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JXMovableCellTableViewTests.m; sourceTree = "<group>"; };
+		1945749B1C71D8480093838F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		194574A01C71D8480093838F /* JXMovableCellTableViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JXMovableCellTableViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		194574A41C71D8480093838F /* JXMovableCellTableViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JXMovableCellTableViewUITests.m; sourceTree = "<group>"; };
+		194574A61C71D8480093838F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		194574B21C71D86C0093838F /* JXMovableCellTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXMovableCellTableView.h; sourceTree = "<group>"; };
+		194574B31C71D86C0093838F /* JXMovableCellTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXMovableCellTableView.m; sourceTree = "<group>"; };
+		194574B51C73217A0093838F /* CustomMoveCellTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMoveCellTableView.h; sourceTree = "<group>"; };
+		194574B61C73217A0093838F /* CustomMoveCellTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMoveCellTableView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		194574791C71D8480093838F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		194574921C71D8480093838F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1945749D1C71D8480093838F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		194574731C71D8480093838F = {
+			isa = PBXGroup;
+			children = (
+				1945747E1C71D8480093838F /* JXMovableCellTableView */,
+				194574981C71D8480093838F /* JXMovableCellTableViewTests */,
+				194574A31C71D8480093838F /* JXMovableCellTableViewUITests */,
+				1945747D1C71D8480093838F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1945747D1C71D8480093838F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1945747C1C71D8480093838F /* JXMovableCellTableView.app */,
+				194574951C71D8480093838F /* JXMovableCellTableViewTests.xctest */,
+				194574A01C71D8480093838F /* JXMovableCellTableViewUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1945747E1C71D8480093838F /* JXMovableCellTableView */ = {
+			isa = PBXGroup;
+			children = (
+				194574821C71D8480093838F /* AppDelegate.h */,
+				194574831C71D8480093838F /* AppDelegate.m */,
+				194574851C71D8480093838F /* ViewController.h */,
+				194574861C71D8480093838F /* ViewController.m */,
+				194574B51C73217A0093838F /* CustomMoveCellTableView.h */,
+				194574B61C73217A0093838F /* CustomMoveCellTableView.m */,
+				194574B21C71D86C0093838F /* JXMovableCellTableView.h */,
+				194574B31C71D86C0093838F /* JXMovableCellTableView.m */,
+				194574881C71D8480093838F /* Main.storyboard */,
+				1945748B1C71D8480093838F /* Assets.xcassets */,
+				1945748D1C71D8480093838F /* LaunchScreen.storyboard */,
+				194574901C71D8480093838F /* Info.plist */,
+				1945747F1C71D8480093838F /* Supporting Files */,
+			);
+			path = JXMovableCellTableView;
+			sourceTree = "<group>";
+		};
+		1945747F1C71D8480093838F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				194574801C71D8480093838F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		194574981C71D8480093838F /* JXMovableCellTableViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				194574991C71D8480093838F /* JXMovableCellTableViewTests.m */,
+				1945749B1C71D8480093838F /* Info.plist */,
+			);
+			path = JXMovableCellTableViewTests;
+			sourceTree = "<group>";
+		};
+		194574A31C71D8480093838F /* JXMovableCellTableViewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				194574A41C71D8480093838F /* JXMovableCellTableViewUITests.m */,
+				194574A61C71D8480093838F /* Info.plist */,
+			);
+			path = JXMovableCellTableViewUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1945747B1C71D8480093838F /* JXMovableCellTableView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 194574A91C71D8480093838F /* Build configuration list for PBXNativeTarget "JXMovableCellTableView" */;
+			buildPhases = (
+				194574781C71D8480093838F /* Sources */,
+				194574791C71D8480093838F /* Frameworks */,
+				1945747A1C71D8480093838F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JXMovableCellTableView;
+			productName = JXMovableCellTableView;
+			productReference = 1945747C1C71D8480093838F /* JXMovableCellTableView.app */;
+			productType = "com.apple.product-type.application";
+		};
+		194574941C71D8480093838F /* JXMovableCellTableViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 194574AC1C71D8480093838F /* Build configuration list for PBXNativeTarget "JXMovableCellTableViewTests" */;
+			buildPhases = (
+				194574911C71D8480093838F /* Sources */,
+				194574921C71D8480093838F /* Frameworks */,
+				194574931C71D8480093838F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				194574971C71D8480093838F /* PBXTargetDependency */,
+			);
+			name = JXMovableCellTableViewTests;
+			productName = JXMovableCellTableViewTests;
+			productReference = 194574951C71D8480093838F /* JXMovableCellTableViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1945749F1C71D8480093838F /* JXMovableCellTableViewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 194574AF1C71D8480093838F /* Build configuration list for PBXNativeTarget "JXMovableCellTableViewUITests" */;
+			buildPhases = (
+				1945749C1C71D8480093838F /* Sources */,
+				1945749D1C71D8480093838F /* Frameworks */,
+				1945749E1C71D8480093838F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				194574A21C71D8480093838F /* PBXTargetDependency */,
+			);
+			name = JXMovableCellTableViewUITests;
+			productName = JXMovableCellTableViewUITests;
+			productReference = 194574A01C71D8480093838F /* JXMovableCellTableViewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		194574741C71D8480093838F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = JX;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = jiaxin;
+				TargetAttributes = {
+					1945747B1C71D8480093838F = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					194574941C71D8480093838F = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 1945747B1C71D8480093838F;
+					};
+					1945749F1C71D8480093838F = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 1945747B1C71D8480093838F;
+					};
+				};
+			};
+			buildConfigurationList = 194574771C71D8480093838F /* Build configuration list for PBXProject "JXMovableCellTableView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 194574731C71D8480093838F;
+			productRefGroup = 1945747D1C71D8480093838F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1945747B1C71D8480093838F /* JXMovableCellTableView */,
+				194574941C71D8480093838F /* JXMovableCellTableViewTests */,
+				1945749F1C71D8480093838F /* JXMovableCellTableViewUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1945747A1C71D8480093838F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1945748F1C71D8480093838F /* LaunchScreen.storyboard in Resources */,
+				1945748C1C71D8480093838F /* Assets.xcassets in Resources */,
+				1945748A1C71D8480093838F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		194574931C71D8480093838F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1945749E1C71D8480093838F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		194574781C71D8480093838F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				194574871C71D8480093838F /* ViewController.m in Sources */,
+				194574841C71D8480093838F /* AppDelegate.m in Sources */,
+				194574B41C71D86C0093838F /* JXMovableCellTableView.m in Sources */,
+				194574B71C73217A0093838F /* CustomMoveCellTableView.m in Sources */,
+				194574811C71D8480093838F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		194574911C71D8480093838F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1945749A1C71D8480093838F /* JXMovableCellTableViewTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1945749C1C71D8480093838F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				194574A51C71D8480093838F /* JXMovableCellTableViewUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		194574971C71D8480093838F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1945747B1C71D8480093838F /* JXMovableCellTableView */;
+			targetProxy = 194574961C71D8480093838F /* PBXContainerItemProxy */;
+		};
+		194574A21C71D8480093838F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1945747B1C71D8480093838F /* JXMovableCellTableView */;
+			targetProxy = 194574A11C71D8480093838F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		194574881C71D8480093838F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				194574891C71D8480093838F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1945748D1C71D8480093838F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1945748E1C71D8480093838F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		194574A71C71D8480093838F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		194574A81C71D8480093838F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		194574AA1C71D8480093838F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JXMovableCellTableView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jiaxin.JXMovableCellTableView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		194574AB1C71D8480093838F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JXMovableCellTableView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jiaxin.JXMovableCellTableView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		194574AD1C71D8480093838F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = JXMovableCellTableViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jiaxin.JXMovableCellTableViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JXMovableCellTableView.app/JXMovableCellTableView";
+			};
+			name = Debug;
+		};
+		194574AE1C71D8480093838F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = JXMovableCellTableViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jiaxin.JXMovableCellTableViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JXMovableCellTableView.app/JXMovableCellTableView";
+			};
+			name = Release;
+		};
+		194574B01C71D8480093838F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = JXMovableCellTableViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jiaxin.JXMovableCellTableViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = JXMovableCellTableView;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		194574B11C71D8480093838F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = JXMovableCellTableViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jiaxin.JXMovableCellTableViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = JXMovableCellTableView;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		194574771C71D8480093838F /* Build configuration list for PBXProject "JXMovableCellTableView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				194574A71C71D8480093838F /* Debug */,
+				194574A81C71D8480093838F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		194574A91C71D8480093838F /* Build configuration list for PBXNativeTarget "JXMovableCellTableView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				194574AA1C71D8480093838F /* Debug */,
+				194574AB1C71D8480093838F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		194574AC1C71D8480093838F /* Build configuration list for PBXNativeTarget "JXMovableCellTableViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				194574AD1C71D8480093838F /* Debug */,
+				194574AE1C71D8480093838F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		194574AF1C71D8480093838F /* Build configuration list for PBXNativeTarget "JXMovableCellTableViewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				194574B01C71D8480093838F /* Debug */,
+				194574B11C71D8480093838F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 194574741C71D8480093838F /* Project object */;
+}
