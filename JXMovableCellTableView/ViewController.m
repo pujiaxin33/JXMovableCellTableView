@@ -10,9 +10,8 @@
 #import "JXMovableCellTableView.h"
 #import "CustomMoveCellTableView.h"
 
-@interface ViewController ()<JXMovableCellTableViewDataSource, UITableViewDelegate>
+@interface ViewController ()<JXMovableCellTableViewDataSource, JXMovableCellTableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, weak) UITableView *testTableView;
 @end
 
 @implementation ViewController
@@ -43,32 +42,6 @@
         movableCell.layer.shadowRadius = 5;
     };
     
-//    CustomMoveCellTableView *customTableView = [[CustomMoveCellTableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-//    customTableView.dataSource = self;
-//    [self.view addSubview:customTableView];
-//    [customTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    
-//    UITableView *originalTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-//    originalTableView.dataSource = self;
-//    originalTableView.delegate = self;
-//    [self.view addSubview:originalTableView];
-//    [originalTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-//    self.testTableView = originalTableView;
-}
-//默认编辑模式下，每个cell左边有个红色的删除按钮，设置为None即可去掉
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleNone;
-}
-//是否允许indexPath的cell移动
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
-{
-    //更新数据源
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -98,5 +71,7 @@
 {
     _dataSource = newDataSourceArray.mutableCopy;
 }
+
+
 
 @end

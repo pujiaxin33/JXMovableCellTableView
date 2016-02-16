@@ -24,6 +24,7 @@
 @end
 
 @protocol JXMovableCellTableViewDelegate <UITableViewDelegate>
+@optional
 /**
  *  将要开始移动indexPath位置的cell
  */

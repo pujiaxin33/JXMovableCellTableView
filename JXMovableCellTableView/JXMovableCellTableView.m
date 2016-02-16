@@ -108,6 +108,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [self.delegate tableView:self willMoveCellAtIndexPath:selectedIndexPath];
     }
     if (_canEdgeScroll) {
+        //开启边缘滚动
         [self jx_startEdgeScroll];
     }
     //每次移动开始获取一次数据源
@@ -115,10 +116,10 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         _tempDataSource = [self.dataSource dataSourceArrayInTableView:self].mutableCopy;
     }
     _selectedIndexPath = selectedIndexPath;
-    
     UITableViewCell *cell = [self cellForRowAtIndexPath:selectedIndexPath];
     _tempView = [self jx_snapshotViewWithInputView:cell];
     if (_drawMovalbeCellBlock) {
+        //将_tempView通过block让使用者自定义
         _drawMovalbeCellBlock(_tempView);
     }else {
         //配置默认样式
@@ -131,12 +132,11 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     }
     _tempView.frame = cell.frame;
     [self addSubview:_tempView];
+    //隐藏cell
     cell.hidden = YES;
-    
     [UIView animateWithDuration:kJXMovableCellAnimationTime animations:^{
         _tempView.center = CGPointMake(_tempView.center.x, point.y);
     }];
-    
 }
 
 - (void)jx_gestureChanged:(UILongPressGestureRecognizer *)gesture
@@ -151,6 +151,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         }
         _selectedIndexPath = currentIndexPath;
     }
+    //让截图跟随手势
     _tempView.center = CGPointMake(_tempView.center.x, point.y);
 }
 
@@ -211,7 +212,6 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [self moveRowAtIndexPath:toIndexPath toIndexPath:fromIndexPath];
         [self endUpdates];
     }
-    
 }
 
 #pragma mark EdgeScroll
