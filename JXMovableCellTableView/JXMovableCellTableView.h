@@ -13,7 +13,7 @@
 
 @required
 /**
- *  获取tableView的数据源数组
+ *  获取tableView的数据源数组，每次开始移动的调用，以获取最新的数据源
  *  数据源的格式：@[@[sectionOneArray], @[sectionTwoArray], ....]
  *  即使只有一个section，最外层也需要用一个数组包裹，比如：@[@[sectionOneArray]]
  */
