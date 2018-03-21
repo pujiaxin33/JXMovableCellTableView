@@ -122,7 +122,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     }
     //每次移动开始获取一次数据源
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(dataSourceArrayInTableView:)]) {
-        _tempDataSource = [self.dataSource dataSourceArrayInTableView:self].mutableCopy;
+        _tempDataSource = [self.dataSource dataSourceArrayInTableView:self];
     }
     _selectedIndexPath = selectedIndexPath;
     UITableViewCell *cell = [self cellForRowAtIndexPath:selectedIndexPath];
@@ -153,7 +153,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     CGPoint point = [gesture locationInView:gesture.view];
     NSIndexPath *currentIndexPath = [self indexPathForRowAtPoint:point];
     //让截图跟随手势
-    _tempView.center = CGPointMake(_tempView.center.x, point.y);
+    _tempView.center = CGPointMake(_tempView.center.x, [self tempViewYToFitTargetY:point.y]);
 
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(tableView:canMoveRowAtIndexPath:)]) {
         if (![self.dataSource tableView:self canMoveRowAtIndexPath:currentIndexPath]) {
@@ -175,10 +175,6 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 {
     if (_canEdgeScroll) {
         [self jx_stopEdgeScroll];
-    }
-    //返回交换后的数据源
-    if (self.dataSource && [self.dataSource respondsToSelector:@selector(tableView:newDataSourceArrayAfterMove:)]) {
-        [self.dataSource tableView:self newDataSourceArrayAfterMove:_tempDataSource.copy];
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(tableView:endMoveCellAtIndexPath:)]) {
         [self.delegate tableView:self endMoveCellAtIndexPath:_selectedIndexPath];
@@ -216,11 +212,10 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         //有多组
         id fromData = _tempDataSource[fromIndexPath.section][fromIndexPath.row];
         id toData = _tempDataSource[toIndexPath.section][toIndexPath.row];
-        NSMutableArray *fromArray = [_tempDataSource[fromIndexPath.section] mutableCopy];
-        NSMutableArray *toArray = [_tempDataSource[toIndexPath.section] mutableCopy];
+        NSMutableArray *fromArray = _tempDataSource[fromIndexPath.section];
+        NSMutableArray *toArray = _tempDataSource[toIndexPath.section];
         [fromArray replaceObjectAtIndex:fromIndexPath.row withObject:toData];
         [toArray replaceObjectAtIndex:toIndexPath.row withObject:fromData];
-        [_tempDataSource replaceObjectAtIndex:fromIndexPath.section withObject:fromArray];
         [_tempDataSource replaceObjectAtIndex:toIndexPath.section withObject:toArray];
         //交换cell
         [self beginUpdates];
@@ -228,6 +223,13 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [self moveRowAtIndexPath:toIndexPath toIndexPath:fromIndexPath];
         [self endUpdates];
     }
+}
+
+- (CGFloat)tempViewYToFitTargetY:(CGFloat)targetY
+{
+    CGFloat minValue = _tempView.bounds.size.height/2.0;
+    CGFloat maxValue = self.contentSize.height - minValue;
+    return MIN(maxValue, MAX(minValue, targetY));
 }
 
 #pragma mark EdgeScroll
@@ -253,7 +255,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
                 return;
             }
             [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y - 1) animated:NO];
-            _tempView.center = CGPointMake(_tempView.center.x, _tempView.center.y - 1);
+            _tempView.center = CGPointMake(_tempView.center.x, [self tempViewYToFitTargetY:_tempView.center.y - 1]);
         }
     }
     if (touchPoint.y > self.contentSize.height - _edgeScrollRange) {
@@ -264,7 +266,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
                 return;
             }
             [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y + 1) animated:NO];
-            _tempView.center = CGPointMake(_tempView.center.x, _tempView.center.y + 1);
+            _tempView.center = CGPointMake(_tempView.center.x, [self tempViewYToFitTargetY:_tempView.center.y + 1]);
         }
     }
     //处理滚动
@@ -273,12 +275,12 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         //cell在往上移动
         CGFloat moveDistance = (minOffsetY - touchPoint.y)/_edgeScrollRange*maxMoveDistance;
         [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y - moveDistance) animated:NO];
-        _tempView.center = CGPointMake(_tempView.center.x, _tempView.center.y - moveDistance);
+        _tempView.center = CGPointMake(_tempView.center.x, [self tempViewYToFitTargetY:_tempView.center.y - moveDistance]);
     }else if (touchPoint.y > maxOffsetY) {
         //cell在往下移动
         CGFloat moveDistance = (touchPoint.y - maxOffsetY)/_edgeScrollRange*maxMoveDistance;
         [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y + moveDistance) animated:NO];
-        _tempView.center = CGPointMake(_tempView.center.x, _tempView.center.y + moveDistance);
+        _tempView.center = CGPointMake(_tempView.center.x, [self tempViewYToFitTargetY:_tempView.center.y + moveDistance]);
     }
 }
 

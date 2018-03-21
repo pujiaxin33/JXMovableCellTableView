@@ -76,14 +76,9 @@
     return YES;
 }
 
-- (NSArray *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView
+- (NSMutableArray *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView
 {
-    return _dataSource.copy;
-}
-
-- (void)tableView:(JXMovableCellTableView *)tableView newDataSourceArrayAfterMove:(NSArray *)newDataSourceArray
-{
-    _dataSource = newDataSourceArray.mutableCopy;
+    return _dataSource;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -13,15 +13,12 @@
 
 @required
 /**
- *  获取tableView的数据源数组，每次开始移动的调用，以获取最新的数据源
- *  数据源的格式：@[@[sectionOneArray], @[sectionTwoArray], ....]
- *  即使只有一个section，最外层也需要用一个数组包裹，比如：@[@[sectionOneArray]]
+ *  获取tableView的数据源数组，每次开始移动的调用，以获取最新的数据源。
+ *  数据源中的数组必须是可变数组，不然不能交换
+ *  数据源的格式：@[@[sectionOneArray].mutableCopy, @[sectionTwoArray].mutableCopy, ....].mutableCopy
+ *  即使只有一个section，最外层也需要用一个数组包裹，比如：@[@[sectionOneArray].mutableCopy].mutableCopy
  */
-- (NSArray *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView;
-/**
- *  返回移动之后调换后的数据源
- */
-- (void)tableView:(JXMovableCellTableView *)tableView newDataSourceArrayAfterMove:(NSArray *)newDataSourceArray;
+- (NSMutableArray *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView;
 
 @end
 
