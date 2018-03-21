@@ -19,10 +19,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _dataSource = [NSMutableArray new];
-    for (NSInteger section = 0; section < 6; section ++) {
+    NSArray *sectionTextArray = @[@"我只是一段普通的文本😳",
+                                  @"我只是一段可爱的文本😊",
+                                  @"我只是一段调皮的文本😜",
+                                  @"我只是一段无聊的文本🙈"];
+    for (NSInteger section = 0; section < sectionTextArray.count; section ++) {
         NSMutableArray *sectionArray = [NSMutableArray new];
         for (NSInteger row = 0; row < 5; row ++) {
-            [sectionArray addObject:[NSString stringWithFormat:@"section -- %ld row -- %ld", section, row]];
+            [sectionArray addObject:[NSString stringWithFormat:@"%@-%ld", sectionTextArray[section], row]];
         }
         [_dataSource addObject:sectionArray];
     }
