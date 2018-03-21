@@ -209,7 +209,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 {
     if ([self numberOfSections] == 1) {
         //只有一组
-        [_tempDataSource exchangeObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
+        [_tempDataSource[fromIndexPath.section] exchangeObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
         //交换cell
         [self moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
     }else {
