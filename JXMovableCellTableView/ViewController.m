@@ -29,6 +29,7 @@
     
     JXMovableCellTableView *tableView = [[JXMovableCellTableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     tableView.dataSource = self;
+    tableView.delegate = self;
     [self.view addSubview:tableView];
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
@@ -81,6 +82,10 @@
     _dataSource = newDataSourceArray.mutableCopy;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
 
 
 @end
