@@ -14,12 +14,12 @@
 @required
 /**
  *  获取tableView的数据源数组
+ *  数据源的格式：@[@[sectionOneArray], @[sectionTwoArray], ....]
+ *  即使只有一个section，最外层也需要用一个数组包裹，比如：@[@[sectionOneArray]]
  */
 - (NSArray *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView;
 /**
  *  返回移动之后调换后的数据源
- *  数据源的格式：@[@[sectionOneArray], @[sectionTwoArray], ....]
- *  即使只有一个section，最外层也需要用一个数组包裹，比如：@[@[sectionOneArray]]
  */
 - (void)tableView:(JXMovableCellTableView *)tableView newDataSourceArrayAfterMove:(NSArray *)newDataSourceArray;
 
