@@ -97,7 +97,6 @@
 
     //scale big
 //    [UIView animateWithDuration:0.25 animations:^{
-//        movableCellsnapshot.center = CGPointMake(movableCellsnapshot.center.x, fingerPoint.y);
 //        movableCellsnapshot.transform = CGAffineTransformMakeScale(1.1, 1.1);
 //    }];
 

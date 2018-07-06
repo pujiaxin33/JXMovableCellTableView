@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		192AC58D20EF66C6003F478C /* Scale.gif in Resources */ = {isa = PBXBuildFile; fileRef = 192AC58A20EF66C6003F478C /* Scale.gif */; };
+		192AC58E20EF66C6003F478C /* NeonLight.gif in Resources */ = {isa = PBXBuildFile; fileRef = 192AC58B20EF66C6003F478C /* NeonLight.gif */; };
+		192AC58F20EF66C6003F478C /* EdgeScroll.gif in Resources */ = {isa = PBXBuildFile; fileRef = 192AC58C20EF66C6003F478C /* EdgeScroll.gif */; };
 		194574811C71D8480093838F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574801C71D8480093838F /* main.m */; };
 		194574841C71D8480093838F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574831C71D8480093838F /* AppDelegate.m */; };
 		194574871C71D8480093838F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574861C71D8480093838F /* ViewController.m */; };
@@ -36,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		192AC58A20EF66C6003F478C /* Scale.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Scale.gif; sourceTree = "<group>"; };
+		192AC58B20EF66C6003F478C /* NeonLight.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NeonLight.gif; sourceTree = "<group>"; };
+		192AC58C20EF66C6003F478C /* EdgeScroll.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = EdgeScroll.gif; sourceTree = "<group>"; };
 		1945747C1C71D8480093838F /* JXMovableCellTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JXMovableCellTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		194574801C71D8480093838F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		194574821C71D8480093838F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -90,6 +96,16 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		192AC58920EF66AE003F478C /* Gif */ = {
+			isa = PBXGroup;
+			children = (
+				192AC58C20EF66C6003F478C /* EdgeScroll.gif */,
+				192AC58B20EF66C6003F478C /* NeonLight.gif */,
+				192AC58A20EF66C6003F478C /* Scale.gif */,
+			);
+			name = Gif;
+			sourceTree = "<group>";
+		};
 		194574731C71D8480093838F = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +129,7 @@
 		1945747E1C71D8480093838F /* JXMovableCellTableView */ = {
 			isa = PBXGroup;
 			children = (
+				192AC58920EF66AE003F478C /* Gif */,
 				192AC58820EF4A8F003F478C /* Classes */,
 				194574821C71D8480093838F /* AppDelegate.h */,
 				194574831C71D8480093838F /* AppDelegate.m */,
@@ -259,6 +276,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1945748F1C71D8480093838F /* LaunchScreen.storyboard in Resources */,
+				192AC58D20EF66C6003F478C /* Scale.gif in Resources */,
+				192AC58F20EF66C6003F478C /* EdgeScroll.gif in Resources */,
+				192AC58E20EF66C6003F478C /* NeonLight.gif in Resources */,
 				1945748C1C71D8480093838F /* Assets.xcassets in Resources */,
 				1945748A1C71D8480093838F /* Main.storyboard in Resources */,
 			);
