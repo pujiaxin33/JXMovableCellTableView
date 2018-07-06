@@ -21,3 +21,7 @@ The custom tableView which can start moving the cell with a long press gesture.
 
 - **`edgeScrollRange`**
   The edge scrolls the trigger range, and the closer to the edge, the faster the speed. The default is 150.
+
+# Installation
+  - Download git reposity, decompress zip.
+  - Drag JXMovableCellTableView files into your project.
