@@ -37,7 +37,7 @@
     [self.view addSubview:tableView];
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
-    tableView.gestureMinimumPressDuration = 1.0;
+    tableView.longPressGesture.minimumPressDuration = 1.0;
     tableView.drawMovalbeCellBlock = ^(UIView *movableCell){
         movableCell.layer.shadowColor = [UIColor grayColor].CGColor;
         movableCell.layer.masksToBounds = NO;

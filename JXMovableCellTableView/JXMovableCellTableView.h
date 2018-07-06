@@ -48,10 +48,7 @@
 
 @property (nonatomic, weak) id<JXMovableCellTableViewDataSource> dataSource;
 @property (nonatomic, weak) id<JXMovableCellTableViewDelegate> delegate;
-/**
- *  长按手势最小触发时间，默认1.0，最小0.2
- */
-@property (nonatomic, assign) CGFloat gestureMinimumPressDuration;
+@property (nonatomic, strong, readonly) UILongPressGestureRecognizer *longPressGesture;
 /**
  *  自定义可移动cell的截图样式
  */

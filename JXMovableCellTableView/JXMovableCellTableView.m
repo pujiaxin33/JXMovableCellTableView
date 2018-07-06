@@ -11,7 +11,8 @@
 static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 
 @interface JXMovableCellTableView ()
-@property (nonatomic, strong) UILongPressGestureRecognizer *gesture;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
+@property (nonatomic, assign) CGFloat gestureMinimumPressDuration;
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 @property (nonatomic, strong) UIView *tempView;
 @property (nonatomic, strong) NSMutableArray *tempDataSource;
@@ -54,21 +55,13 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     _edgeScrollRange = 150.f;
 }
 
-#pragma mark Setter
-
-- (void)setGestureMinimumPressDuration:(CGFloat)gestureMinimumPressDuration
-{
-    _gestureMinimumPressDuration = gestureMinimumPressDuration;
-    _gesture.minimumPressDuration = MAX(0.2, gestureMinimumPressDuration);
-}
-
 #pragma mark Gesture
 
 - (void)jx_addGesture
 {
-    _gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(jx_processGesture:)];
-    _gesture.minimumPressDuration = _gestureMinimumPressDuration;
-    [self addGestureRecognizer:_gesture];
+    _longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(jx_processGesture:)];
+    _longPressGesture.minimumPressDuration = _gestureMinimumPressDuration;
+    [self addGestureRecognizer:_longPressGesture];
 }
 
 - (void)jx_processGesture:(UILongPressGestureRecognizer *)gesture
@@ -248,7 +241,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 
 - (void)jx_processEdgeScroll
 {
-    [self jx_gestureChanged:_gesture];
+    [self jx_gestureChanged:_longPressGesture];
     CGFloat minOffsetY = self.contentOffset.y + _edgeScrollRange;
     CGFloat maxOffsetY = self.contentOffset.y + self.bounds.size.height - _edgeScrollRange;
     CGPoint touchPoint = _tempView.center;
