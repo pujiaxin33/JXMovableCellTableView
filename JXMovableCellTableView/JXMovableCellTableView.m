@@ -97,8 +97,15 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     if (!selectedIndexPath) {
         return;
     }
+    UITableViewCell *cell = [self cellForRowAtIndexPath:selectedIndexPath];
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(tableView:canMoveRowAtIndexPath:)]) {
         if (![self.dataSource tableView:self canMoveRowAtIndexPath:selectedIndexPath]) {
+            //不允许长按移动cell，那就抖动一下提示用户
+            CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
+            shakeAnimation.duration = 0.25;
+            shakeAnimation.values = @[@(-20), @(20), @(-10), @(10), @(0)];
+            [cell.layer addAnimation:shakeAnimation forKey:@"shake"];
+
             if (self.delegate && [self.delegate respondsToSelector:@selector(tableView:tryMoveUnmovableCellAtIndexPath:)]) {
                 [self.delegate tableView:self tryMoveUnmovableCellAtIndexPath:selectedIndexPath];
             }
@@ -118,7 +125,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         _tempDataSource = [self.dataSource dataSourceArrayInTableView:self];
     }
     _selectedIndexPath = selectedIndexPath;
-    UITableViewCell *cell = [self cellForRowAtIndexPath:selectedIndexPath];
+
     _tempView = [self jx_snapshotViewWithInputView:cell];
     if (_drawMovalbeCellBlock) {
         //将_tempView通过block让使用者自定义
