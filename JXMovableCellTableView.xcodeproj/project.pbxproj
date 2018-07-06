@@ -16,7 +16,6 @@
 		1945749A1C71D8480093838F /* JXMovableCellTableViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574991C71D8480093838F /* JXMovableCellTableViewTests.m */; };
 		194574A51C71D8480093838F /* JXMovableCellTableViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574A41C71D8480093838F /* JXMovableCellTableViewUITests.m */; };
 		194574B41C71D86C0093838F /* JXMovableCellTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574B31C71D86C0093838F /* JXMovableCellTableView.m */; };
-		194574B71C73217A0093838F /* CustomMoveCellTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574B61C73217A0093838F /* CustomMoveCellTableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +54,6 @@
 		194574A61C71D8480093838F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		194574B21C71D86C0093838F /* JXMovableCellTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXMovableCellTableView.h; sourceTree = "<group>"; };
 		194574B31C71D86C0093838F /* JXMovableCellTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXMovableCellTableView.m; sourceTree = "<group>"; };
-		194574B51C73217A0093838F /* CustomMoveCellTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMoveCellTableView.h; sourceTree = "<group>"; };
-		194574B61C73217A0093838F /* CustomMoveCellTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMoveCellTableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +81,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		192AC58820EF4A8F003F478C /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				194574B21C71D86C0093838F /* JXMovableCellTableView.h */,
+				194574B31C71D86C0093838F /* JXMovableCellTableView.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		194574731C71D8480093838F = {
 			isa = PBXGroup;
 			children = (
@@ -107,14 +113,11 @@
 		1945747E1C71D8480093838F /* JXMovableCellTableView */ = {
 			isa = PBXGroup;
 			children = (
+				192AC58820EF4A8F003F478C /* Classes */,
 				194574821C71D8480093838F /* AppDelegate.h */,
 				194574831C71D8480093838F /* AppDelegate.m */,
 				194574851C71D8480093838F /* ViewController.h */,
 				194574861C71D8480093838F /* ViewController.m */,
-				194574B51C73217A0093838F /* CustomMoveCellTableView.h */,
-				194574B61C73217A0093838F /* CustomMoveCellTableView.m */,
-				194574B21C71D86C0093838F /* JXMovableCellTableView.h */,
-				194574B31C71D86C0093838F /* JXMovableCellTableView.m */,
 				194574881C71D8480093838F /* Main.storyboard */,
 				1945748B1C71D8480093838F /* Assets.xcassets */,
 				1945748D1C71D8480093838F /* LaunchScreen.storyboard */,
@@ -285,7 +288,6 @@
 				194574871C71D8480093838F /* ViewController.m in Sources */,
 				194574841C71D8480093838F /* AppDelegate.m in Sources */,
 				194574B41C71D86C0093838F /* JXMovableCellTableView.m in Sources */,
-				194574B71C73217A0093838F /* CustomMoveCellTableView.m in Sources */,
 				194574811C71D8480093838F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

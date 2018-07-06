@@ -14,7 +14,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGesture;
 @property (nonatomic, assign) CGFloat gestureMinimumPressDuration;
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
-@property (nonatomic, strong) UIView *tempView;
+@property (nonatomic, strong) UIImageView *snapshot;
 @property (nonatomic, strong) NSMutableArray *tempDataSource;
 @property (nonatomic, strong) CADisplayLink *edgeScrollTimer;
 @end
@@ -25,7 +25,8 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 
 - (void)dealloc
 {
-    _drawMovalbeCellBlock = nil;
+    self.dataSource = nil;
+    self.delegate = nil;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
@@ -100,7 +101,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     UITableViewCell *cell = [self cellForRowAtIndexPath:selectedIndexPath];
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(tableView:canMoveRowAtIndexPath:)]) {
         if (![self.dataSource tableView:self canMoveRowAtIndexPath:selectedIndexPath]) {
-            //不允许长按移动cell，那就抖动一下提示用户
+            //It is not allowed to move the cell, then shake it to prompt the user.
             CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
             shakeAnimation.duration = 0.25;
             shakeAnimation.values = @[@(-20), @(20), @(-10), @(10), @(0)];
@@ -117,42 +118,43 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [self.delegate tableView:self willMoveCellAtIndexPath:selectedIndexPath];
     }
     if (_canEdgeScroll) {
-        //开启边缘滚动
         [self jx_startEdgeScroll];
     }
-    //每次移动开始获取一次数据源
+    //Get a data source every time you move
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(dataSourceArrayInTableView:)]) {
         _tempDataSource = [self.dataSource dataSourceArrayInTableView:self];
     }
     _selectedIndexPath = selectedIndexPath;
 
-    _tempView = [self jx_snapshotViewWithInputView:cell];
-    if (_drawMovalbeCellBlock) {
-        //将_tempView通过block让使用者自定义
-        _drawMovalbeCellBlock(_tempView);
+    _snapshot = [self jx_snapshotViewWithInputView:cell];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tableView:customizeMovalbeCell:)]) {
+        [self.delegate tableView:self customizeMovalbeCell:_snapshot];
     }else {
-        //配置默认样式
-        _tempView.layer.shadowColor = [UIColor grayColor].CGColor;
-        _tempView.layer.masksToBounds = NO;
-        _tempView.layer.cornerRadius = 0;
-        _tempView.layer.shadowOffset = CGSizeMake(-5, 0);
-        _tempView.layer.shadowOpacity = 0.4;
-        _tempView.layer.shadowRadius = 5;
+        _snapshot.layer.shadowColor = [UIColor grayColor].CGColor;
+        _snapshot.layer.masksToBounds = NO;
+        _snapshot.layer.cornerRadius = 0;
+        _snapshot.layer.shadowOffset = CGSizeMake(-5, 0);
+        _snapshot.layer.shadowOpacity = 0.4;
+        _snapshot.layer.shadowRadius = 5;
     }
-    _tempView.frame = cell.frame;
-    [self addSubview:_tempView];
-    //隐藏cell
+    _snapshot.frame = cell.frame;
+    [self addSubview:_snapshot];
+
     cell.hidden = YES;
-    [UIView animateWithDuration:kJXMovableCellAnimationTime animations:^{
-        _tempView.center = CGPointMake(_tempView.center.x, point.y);
-    }];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tableView:customizeStartMovingAnimation:fingerPoint:)]) {
+        [self.delegate tableView:self customizeStartMovingAnimation:_snapshot fingerPoint:point];
+    }else {
+        [UIView animateWithDuration:kJXMovableCellAnimationTime animations:^{
+            _snapshot.center = CGPointMake(_snapshot.center.x, point.y);
+        }];
+    }
 }
 
 - (void)jx_gestureChanged:(UILongPressGestureRecognizer *)gesture
 {
     CGPoint point = [gesture locationInView:gesture.view];
-    //让截图跟随手势
-    _tempView.center = CGPointMake(_tempView.center.x, [self tempViewYToFitTargetY:point.y]);
+    //Let the screenshot follow the gesture
+    _snapshot.center = CGPointMake(_snapshot.center.x, [self snapshotYToFitTargetY:point.y]);
 
     NSIndexPath *currentIndexPath = [self indexPathForRowAtPoint:point];
     if (!currentIndexPath) {
@@ -168,7 +170,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     }
 
     if (currentIndexPath && ![_selectedIndexPath isEqual:currentIndexPath]) {
-        //交换数据源和cell
+        //Exchange data source and cell
         [self jx_updateDataSourceAndCellFromIndexPath:_selectedIndexPath toIndexPath:currentIndexPath];
         if (self.delegate && [self.delegate respondsToSelector:@selector(tableView:didMoveCellFromIndexPath:toIndexPath:)]) {
             [self.delegate tableView:self didMoveCellFromIndexPath:_selectedIndexPath toIndexPath:currentIndexPath];
@@ -187,35 +189,35 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     }
     UITableViewCell *cell = [self cellForRowAtIndexPath:_selectedIndexPath];
     [UIView animateWithDuration:kJXMovableCellAnimationTime animations:^{
-        _tempView.frame = cell.frame;
+        _snapshot.transform = CGAffineTransformIdentity;
+        _snapshot.frame = cell.frame;
     } completion:^(BOOL finished) {
         cell.hidden = NO;
-        [_tempView removeFromSuperview];
-        _tempView = nil;
+        [_snapshot removeFromSuperview];
+        _snapshot = nil;
     }];
 }
 
 #pragma mark Private action
 
-- (UIView *)jx_snapshotViewWithInputView:(UIView *)inputView
+- (UIImageView *)jx_snapshotViewWithInputView:(UIView *)inputView
 {
     UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, NO, 0);
     [inputView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    UIView *snapshot = [[UIImageView alloc] initWithImage:image];
+    UIImageView *snapshot = [[UIImageView alloc] initWithImage:image];
     return snapshot;
 }
 
 - (void)jx_updateDataSourceAndCellFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     if ([self numberOfSections] == 1) {
-        //只有一组
+        //only one section
         [_tempDataSource[fromIndexPath.section] exchangeObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
-        //交换cell
         [self moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
     }else {
-        //有多组
+        //multiple sections
         id fromData = _tempDataSource[fromIndexPath.section][fromIndexPath.row];
         id toData = _tempDataSource[toIndexPath.section][toIndexPath.row];
         NSMutableArray *fromArray = _tempDataSource[fromIndexPath.section];
@@ -223,7 +225,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [fromArray replaceObjectAtIndex:fromIndexPath.row withObject:toData];
         [toArray replaceObjectAtIndex:toIndexPath.row withObject:fromData];
         [_tempDataSource replaceObjectAtIndex:toIndexPath.section withObject:toArray];
-        //交换cell
+
         [self beginUpdates];
         [self moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
         [self moveRowAtIndexPath:toIndexPath toIndexPath:fromIndexPath];
@@ -231,9 +233,9 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     }
 }
 
-- (CGFloat)tempViewYToFitTargetY:(CGFloat)targetY
+- (CGFloat)snapshotYToFitTargetY:(CGFloat)targetY
 {
-    CGFloat minValue = _tempView.bounds.size.height/2.0;
+    CGFloat minValue = _snapshot.bounds.size.height/2.0;
     CGFloat maxValue = self.contentSize.height - minValue;
     return MIN(maxValue, MAX(minValue, targetY));
 }
@@ -251,8 +253,8 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     [self jx_gestureChanged:_longPressGesture];
     CGFloat minOffsetY = self.contentOffset.y + _edgeScrollRange;
     CGFloat maxOffsetY = self.contentOffset.y + self.bounds.size.height - _edgeScrollRange;
-    CGPoint touchPoint = _tempView.center;
-    //处理上下达到极限之后不再滚动tableView，其中处理了滚动到最边缘的时候，当前处于edgeScrollRange内，但是tableView还未显示完，需要显示完tableView才停止滚动
+    CGPoint touchPoint = _snapshot.center;
+    //After the processing reaches the limit, the tableView is no longer scrolled. When the scroll to the edge is processed, it is currently in the edgeScrollRange, but the tableView has not been displayed yet. You need to display the tableView to stop scrolling.
     if (touchPoint.y < _edgeScrollRange) {
         if (self.contentOffset.y <= 0) {
             return;
@@ -261,7 +263,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
                 return;
             }
             [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y - 1) animated:NO];
-            _tempView.center = CGPointMake(_tempView.center.x, [self tempViewYToFitTargetY:_tempView.center.y - 1]);
+            _snapshot.center = CGPointMake(_snapshot.center.x, [self snapshotYToFitTargetY:_snapshot.center.y - 1]);
         }
     }
     if (touchPoint.y > self.contentSize.height - _edgeScrollRange) {
@@ -272,21 +274,21 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
                 return;
             }
             [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y + 1) animated:NO];
-            _tempView.center = CGPointMake(_tempView.center.x, [self tempViewYToFitTargetY:_tempView.center.y + 1]);
+            _snapshot.center = CGPointMake(_snapshot.center.x, [self snapshotYToFitTargetY:_snapshot.center.y + 1]);
         }
     }
-    //处理滚动
+
     CGFloat maxMoveDistance = 20;
     if (touchPoint.y < minOffsetY) {
-        //cell在往上移动
+        //Cell is moving up
         CGFloat moveDistance = (minOffsetY - touchPoint.y)/_edgeScrollRange*maxMoveDistance;
         [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y - moveDistance) animated:NO];
-        _tempView.center = CGPointMake(_tempView.center.x, [self tempViewYToFitTargetY:_tempView.center.y - moveDistance]);
+        _snapshot.center = CGPointMake(_snapshot.center.x, [self snapshotYToFitTargetY:_snapshot.center.y - moveDistance]);
     }else if (touchPoint.y > maxOffsetY) {
-        //cell在往下移动
+        //Cell is moving down
         CGFloat moveDistance = (touchPoint.y - maxOffsetY)/_edgeScrollRange*maxMoveDistance;
         [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y + moveDistance) animated:NO];
-        _tempView.center = CGPointMake(_tempView.center.x, [self tempViewYToFitTargetY:_tempView.center.y + moveDistance]);
+        _snapshot.center = CGPointMake(_snapshot.center.x, [self snapshotYToFitTargetY:_snapshot.center.y + moveDistance]);
     }
 }
 

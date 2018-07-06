@@ -13,10 +13,10 @@
 
 @required
 /**
- *  获取tableView的数据源数组，每次开始移动的调用，以获取最新的数据源。
- *  数据源中的数组必须是可变数组，不然不能交换
- *  数据源的格式：@[@[sectionOneArray].mutableCopy, @[sectionTwoArray].mutableCopy, ....].mutableCopy
- *  即使只有一个section，最外层也需要用一个数组包裹，比如：@[@[sectionOneArray].mutableCopy].mutableCopy
+ *  Get the data source array of the tableView, each time you start the call to get the latest data source.
+ *  The array in the data source must be a mutable array, otherwise it cannot be exchanged
+ *  The format of the data source:@[@[sectionOneArray].mutableCopy, @[sectionTwoArray].mutableCopy, ....].mutableCopy
+ *  Even if there is only one section, the outermost layer needs to be wrapped in an array, such as:@[@[sectionOneArray].mutableCopy].mutableCopy
  */
 - (NSMutableArray *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView;
 
@@ -25,22 +25,32 @@
 @protocol JXMovableCellTableViewDelegate <UITableViewDelegate>
 @optional
 /**
- *  将要开始移动indexPath位置的cell
+ *  The cell that will start moving the indexPath location
  */
 - (void)tableView:(JXMovableCellTableView *)tableView willMoveCellAtIndexPath:(NSIndexPath *)indexPath;
 /**
- *  完成一次从fromIndexPath cell到toIndexPath cell的移动
+ *  Move cell `fromIndexPath` to `toIndexPath` completed
  */
 - (void)tableView:(JXMovableCellTableView *)tableView didMoveCellFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
 /**
- *  结束移动cell在indexPath
+ *  Move cell ended
  */
 - (void)tableView:(JXMovableCellTableView *)tableView endMoveCellAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
- *  用户尝试移动一个不允许移动的cell，你可以做一些提示框告知用户
+ *  The user tries to move a cell that is not allowed to move. You can make some prompts to inform the user.
  */
 - (void)tableView:(JXMovableCellTableView *)tableView tryMoveUnmovableCellAtIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  Customize the screenshot style of the movable cell
+ */
+- (void)tableView:(JXMovableCellTableView *)tableView customizeMovalbeCell:(UIImageView *)movableCellsnapshot;
+
+/**
+ *  Custom start moving cell animation
+ */
+- (void)tableView:(JXMovableCellTableView *)tableView customizeStartMovingAnimation:(UIImageView *)movableCellsnapshot fingerPoint:(CGPoint)fingerPoint;
 
 @end
 
@@ -50,15 +60,11 @@
 @property (nonatomic, weak) id<JXMovableCellTableViewDelegate> delegate;
 @property (nonatomic, strong, readonly) UILongPressGestureRecognizer *longPressGesture;
 /**
- *  自定义可移动cell的截图样式
- */
-@property (nonatomic, copy) void(^drawMovalbeCellBlock)(UIView *movableCell);
-/**
- *  是否允许拖动到屏幕边缘后，开启边缘滚动，默认YES
+ *  Whether to allow dragging to the edge of the screen, turn on edge scrolling, default YES
  */
 @property (nonatomic, assign) BOOL canEdgeScroll;
 /**
- *  边缘滚动触发范围，默认150，越靠近边缘速度越快
+ *  Edge scroll trigger range, default 150, the faster the edge is closer to the edge
  */
 @property (nonatomic, assign) CGFloat edgeScrollRange;
 
