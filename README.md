@@ -39,7 +39,7 @@ The JXMovableCellTableView which added a `UILongPressGestureRecognizer`. when ge
   
   - **`JXMovableCellTableViewDelegate`**
   
-  ```
+```
   /**
  *  The cell that will start moving the indexPath location
  */
