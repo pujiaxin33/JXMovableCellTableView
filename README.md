@@ -37,7 +37,7 @@ The JXMovableCellTableView which added a `UILongPressGestureRecognizer`. when ge
 
   The edge scrolls the trigger range, and the closer to the edge, the faster the speed. The default is 150.
   
-  - **`JXMovableCellTableViewDelegate`**
+- **`JXMovableCellTableViewDelegate`**
   
 ```
   /**
