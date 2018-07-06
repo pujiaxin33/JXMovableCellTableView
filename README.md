@@ -18,7 +18,7 @@ The JXMovableCellTableView which added a `UILongPressGestureRecognizer`. when ge
 
 - Breath
 
-![Breath]()
+![Breath](https://github.com/pujiaxin33/JXMovableCellTableView/blob/master/JXMovableCellTableView/Gifs/Breath.gif)
 
 
 # Features
@@ -28,10 +28,6 @@ The JXMovableCellTableView which added a `UILongPressGestureRecognizer`. when ge
 - Support to move to the edge of the screen to scroll the tableview.
 
 # Usage
-
-- **`void(^drawMovalbeCellBlock)(UIView *movableCell)`**
-
-  Customize by configuring the moveCell.
  
 - **`canEdgeScroll`**
 
@@ -40,6 +36,48 @@ The JXMovableCellTableView which added a `UILongPressGestureRecognizer`. when ge
 - **`edgeScrollRange`**
 
   The edge scrolls the trigger range, and the closer to the edge, the faster the speed. The default is 150.
+  
+  - **`JXMovableCellTableViewDelegate`**
+  ```
+  /**
+ *  The cell that will start moving the indexPath location
+ */
+- (void)tableView:(JXMovableCellTableView *)tableView willMoveCellAtIndexPath:(NSIndexPath *)indexPath;
+/**
+ *  Move cell `fromIndexPath` to `toIndexPath` completed
+ */
+- (void)tableView:(JXMovableCellTableView *)tableView didMoveCellFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
+/**
+ *  Move cell ended
+ */
+- (void)tableView:(JXMovableCellTableView *)tableView endMoveCellAtIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  The user tries to move a cell that is not allowed to move. You can make some prompts to inform the user.
+ */
+- (void)tableView:(JXMovableCellTableView *)tableView tryMoveUnmovableCellAtIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  Customize the screenshot style of the movable cell
+ */
+- (void)tableView:(JXMovableCellTableView *)tableView customizeMovalbeCell:(UIImageView *)movableCellsnapshot;
+
+/**
+ *  Custom start moving cell animation
+ */
+- (void)tableView:(JXMovableCellTableView *)tableView customizeStartMovingAnimation:(UIImageView *)movableCellsnapshot fingerPoint:(CGPoint)fingerPoint;
+```
+
+- **`JXMovableCellTableViewDataSource`**
+```
+/**
+ *  Get the data source array of the tableView, each time you start the call to get the latest data source.
+ *  The array in the data source must be a mutable array, otherwise it cannot be exchanged
+ *  The format of the data source:@[@[sectionOneArray].mutableCopy, @[sectionTwoArray].mutableCopy, ....].mutableCopy
+ *  Even if there is only one section, the outermost layer needs to be wrapped in an array, such as:@[@[sectionOneArray].mutableCopy].mutableCopy
+ */
+- (NSMutableArray *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView;
+```
 
 # Installation
   - Download git reposity, decompress zip.
