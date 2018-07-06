@@ -7,7 +7,19 @@ The JXMovableCellTableView which added a `UILongPressGestureRecognizer`. when ge
 [中文介绍](https://www.jianshu.com/p/ce382f9bc794)
 
 # Check it out!
+
+- Edge scroll
+
 ![EdgeScroll](https://github.com/pujiaxin33/JXMovableCellTableView/blob/master/JXMovableCellTableView/Gifs/EdgeScroll.gif)
+
+- Neon light
+
+![Neonlight](https://github.com/pujiaxin33/JXMovableCellTableView/blob/master/JXMovableCellTableView/Gifs/NeonLight.gif)
+
+- Breath
+
+![Breath]()
+
 
 # Features
 - Just need a long press gesture can start moving cell. Don't need call system api `[tableView setEditing:YES animated:YES];`.
