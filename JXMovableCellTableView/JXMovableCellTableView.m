@@ -151,9 +151,15 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 - (void)jx_gestureChanged:(UILongPressGestureRecognizer *)gesture
 {
     CGPoint point = [gesture locationInView:gesture.view];
-    NSIndexPath *currentIndexPath = [self indexPathForRowAtPoint:point];
     //让截图跟随手势
     _tempView.center = CGPointMake(_tempView.center.x, [self tempViewYToFitTargetY:point.y]);
+
+    NSIndexPath *currentIndexPath = [self indexPathForRowAtPoint:point];
+    if (!currentIndexPath) {
+        return;
+    }
+    UITableViewCell *selectedCell = [self cellForRowAtIndexPath:_selectedIndexPath];
+    selectedCell.hidden = YES;
 
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(tableView:canMoveRowAtIndexPath:)]) {
         if (![self.dataSource tableView:self canMoveRowAtIndexPath:currentIndexPath]) {
