@@ -8,15 +8,15 @@ The JXMovableCellTableView which added a `UILongPressGestureRecognizer`. when ge
 
 # Check it out!
 
-- Edge scroll
+- **Edge scroll**
 
 ![EdgeScroll](https://github.com/pujiaxin33/JXMovableCellTableView/blob/master/JXMovableCellTableView/Gifs/EdgeScroll.gif)
 
-- Neon light
+- **Neon light**
 
 ![Neonlight](https://github.com/pujiaxin33/JXMovableCellTableView/blob/master/JXMovableCellTableView/Gifs/NeonLight.gif)
 
-- Breath
+- **Breath**
 
 ![Breath](https://github.com/pujiaxin33/JXMovableCellTableView/blob/master/JXMovableCellTableView/Gifs/Breath.gif)
 
@@ -38,6 +38,7 @@ The JXMovableCellTableView which added a `UILongPressGestureRecognizer`. when ge
   The edge scrolls the trigger range, and the closer to the edge, the faster the speed. The default is 150.
   
   - **`JXMovableCellTableViewDelegate`**
+  
   ```
   /**
  *  The cell that will start moving the indexPath location
@@ -69,6 +70,7 @@ The JXMovableCellTableView which added a `UILongPressGestureRecognizer`. when ge
 ```
 
 - **`JXMovableCellTableViewDataSource`**
+
 ```
 /**
  *  Get the data source array of the tableView, each time you start the call to get the latest data source.
