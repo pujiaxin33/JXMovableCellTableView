@@ -17,6 +17,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 @property (nonatomic, strong) UIImageView *snapshot;
 @property (nonatomic, strong) NSMutableArray *tempDataSource;
 @property (nonatomic, strong) CADisplayLink *edgeScrollLink;
+@property (nonatomic, assign) CGFloat currentScrollSpeedPerFrame;
 @end
 
 @implementation JXMovableCellTableView
@@ -228,10 +229,15 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [toArray replaceObjectAtIndex:toIndexPath.row withObject:fromData];
         [_tempDataSource replaceObjectAtIndex:toIndexPath.section withObject:toArray];
 
-        [self beginUpdates];
-        [self moveRowAtIndexPath:toIndexPath toIndexPath:fromIndexPath];
-        [self moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
-        [self endUpdates];
+
+        if (_currentScrollSpeedPerFrame > 10) {
+            [self reloadRowsAtIndexPaths:@[fromIndexPath, toIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }else {
+            [self beginUpdates];
+            [self moveRowAtIndexPath:toIndexPath toIndexPath:fromIndexPath];
+            [self moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+            [self endUpdates];
+        }
     }
 }
 
@@ -265,11 +271,13 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     if (touchPoint.y < minOffsetY) {
         //Cell is moving up
         CGFloat moveDistance = (minOffsetY - touchPoint.y)/_edgeScrollTriggerRange*_maxScrollSpeedPerFrame;
+        _currentScrollSpeedPerFrame = moveDistance;
         self.contentOffset = CGPointMake(self.contentOffset.x, [self limitContentOffsetY:self.contentOffset.y - moveDistance]);
         _snapshot.center = CGPointMake(_snapshot.center.x, [self limitSnapshotCenterY:_snapshot.center.y - moveDistance]);
     }else if (touchPoint.y > maxOffsetY) {
         //Cell is moving down
         CGFloat moveDistance = (touchPoint.y - maxOffsetY)/_edgeScrollTriggerRange*_maxScrollSpeedPerFrame;
+        _currentScrollSpeedPerFrame = moveDistance;
         self.contentOffset = CGPointMake(self.contentOffset.x, [self limitContentOffsetY:self.contentOffset.y + moveDistance]);
         _snapshot.center = CGPointMake(_snapshot.center.x, [self limitSnapshotCenterY:_snapshot.center.y + moveDistance]);
     }
@@ -279,6 +287,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 
 - (void)jx_stopEdgeScroll
 {
+    _currentScrollSpeedPerFrame = 0;
     if (_edgeScrollLink) {
         [_edgeScrollLink invalidate];
         _edgeScrollLink = nil;
