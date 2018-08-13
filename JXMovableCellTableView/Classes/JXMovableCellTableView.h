@@ -63,9 +63,15 @@
  *  Whether to allow dragging to the edge of the screen, turn on edge scrolling, default YES
  */
 @property (nonatomic, assign) BOOL canEdgeScroll;
+
 /**
  *  Edge scroll trigger range, default 150, the faster the edge is closer to the edge
  */
-@property (nonatomic, assign) CGFloat edgeScrollRange;
+@property (nonatomic, assign) CGFloat edgeScrollTriggerRange;
+
+/**
+ *  When the CADisplayLink callback, self.contentOffsetY can scroll max speed, default 20. the faster the edge closer
+ */
+@property (nonatomic, assign) CGFloat maxScrollSpeedPerFrame;
 
 @end

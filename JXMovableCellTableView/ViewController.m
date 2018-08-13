@@ -10,6 +10,7 @@
 #import "JXMovableCellTableView.h"
 
 @interface ViewController ()<JXMovableCellTableViewDataSource, JXMovableCellTableViewDelegate>
+@property (nonatomic, strong) JXMovableCellTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @end
 
@@ -17,6 +18,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.title = @"JXMovableCellTableView";
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     _dataSource = [NSMutableArray new];
     NSArray *sectionTextArray = @[@"I am just a plain text 😳",
                                   @"I am just a lovely text 😊",
@@ -24,19 +29,24 @@
                                   @"I am just a boring text 🙈"];
     for (NSInteger section = 0; section < sectionTextArray.count; section ++) {
         NSMutableArray *sectionArray = [NSMutableArray new];
-        for (NSInteger row = 0; row < 5; row ++) {
+        for (NSInteger row = 0; row < 20; row ++) {
             [sectionArray addObject:[NSString stringWithFormat:@"%@-%ld", sectionTextArray[section], row]];
         }
         [_dataSource addObject:sectionArray];
     }
     
-    JXMovableCellTableView *tableView = [[JXMovableCellTableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    tableView.dataSource = self;
-    tableView.delegate = self;
-    [self.view addSubview:tableView];
-    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    tableView.longPressGesture.minimumPressDuration = 1.0;
-    
+    _tableView = [[JXMovableCellTableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    [self.view addSubview:_tableView];
+    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    _tableView.longPressGesture.minimumPressDuration = 1.0;
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+
+    _tableView.frame = self.view.bounds;
 }
 
 #pragma mark - JXMovableCellTableViewDataSource

@@ -16,7 +16,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 @property (nonatomic, strong) UIImageView *snapshot;
 @property (nonatomic, strong) NSMutableArray *tempDataSource;
-@property (nonatomic, strong) CADisplayLink *edgeScrollTimer;
+@property (nonatomic, strong) CADisplayLink *edgeScrollLink;
 @end
 
 @implementation JXMovableCellTableView
@@ -53,7 +53,8 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 {
     _gestureMinimumPressDuration = 1.f;
     _canEdgeScroll = YES;
-    _edgeScrollRange = 150.f;
+    _edgeScrollTriggerRange = 150.f;
+    _maxScrollSpeedPerFrame = 20;
 }
 
 #pragma mark Gesture
@@ -153,8 +154,9 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 - (void)jx_gestureChanged:(UILongPressGestureRecognizer *)gesture
 {
     CGPoint point = [gesture locationInView:gesture.view];
+    point = CGPointMake(_snapshot.center.x, [self limitSnapshotCenterY:point.y]);
     //Let the screenshot follow the gesture
-    _snapshot.center = CGPointMake(_snapshot.center.x, [self snapshotYToFitTargetY:point.y]);
+    _snapshot.center = point;
 
     NSIndexPath *currentIndexPath = [self indexPathForRowAtPoint:point];
     if (!currentIndexPath) {
@@ -227,76 +229,59 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [_tempDataSource replaceObjectAtIndex:toIndexPath.section withObject:toArray];
 
         [self beginUpdates];
-        [self moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
         [self moveRowAtIndexPath:toIndexPath toIndexPath:fromIndexPath];
+        [self moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
         [self endUpdates];
     }
 }
 
-- (CGFloat)snapshotYToFitTargetY:(CGFloat)targetY
+- (CGFloat)limitSnapshotCenterY:(CGFloat)targetY
 {
-    CGFloat minValue = _snapshot.bounds.size.height/2.0;
-    CGFloat maxValue = self.contentSize.height - minValue;
+    CGFloat minValue = _snapshot.bounds.size.height/2.0 + self.contentOffset.y;
+    CGFloat maxValue = self.contentOffset.y + self.bounds.size.height - _snapshot.bounds.size.height/2.0;
     return MIN(maxValue, MAX(minValue, targetY));
+}
+
+- (CGFloat)limitContentOffsetY:(CGFloat)targetOffsetY {
+    CGFloat minContentOffsetY = 0;
+    CGFloat maxContentOffsetY = self.contentSize.height - self.bounds.size.height;
+    return MIN(maxContentOffsetY, MAX(minContentOffsetY, targetOffsetY));
 }
 
 #pragma mark EdgeScroll
 
 - (void)jx_startEdgeScroll
 {
-    _edgeScrollTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(jx_processEdgeScroll)];
-    [_edgeScrollTimer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    _edgeScrollLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(jx_processEdgeScroll)];
+    [_edgeScrollLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 }
 
 - (void)jx_processEdgeScroll
 {
-    [self jx_gestureChanged:_longPressGesture];
-    CGFloat minOffsetY = self.contentOffset.y + _edgeScrollRange;
-    CGFloat maxOffsetY = self.contentOffset.y + self.bounds.size.height - _edgeScrollRange;
+    CGFloat minOffsetY = self.contentOffset.y + _edgeScrollTriggerRange;
+    CGFloat maxOffsetY = self.contentOffset.y + self.bounds.size.height - _edgeScrollTriggerRange;
     CGPoint touchPoint = _snapshot.center;
-    //After the processing reaches the limit, the tableView is no longer scrolled. When the scroll to the edge is processed, it is currently in the edgeScrollRange, but the tableView has not been displayed yet. You need to display the tableView to stop scrolling.
-    if (touchPoint.y < _edgeScrollRange) {
-        if (self.contentOffset.y <= 0) {
-            return;
-        }else {
-            if (self.contentOffset.y - 1 < 0) {
-                return;
-            }
-            [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y - 1) animated:NO];
-            _snapshot.center = CGPointMake(_snapshot.center.x, [self snapshotYToFitTargetY:_snapshot.center.y - 1]);
-        }
-    }
-    if (touchPoint.y > self.contentSize.height - _edgeScrollRange) {
-        if (self.contentOffset.y >= self.contentSize.height - self.bounds.size.height) {
-            return;
-        }else {
-            if (self.contentOffset.y + 1 > self.contentSize.height - self.bounds.size.height) {
-                return;
-            }
-            [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y + 1) animated:NO];
-            _snapshot.center = CGPointMake(_snapshot.center.x, [self snapshotYToFitTargetY:_snapshot.center.y + 1]);
-        }
-    }
 
-    CGFloat maxMoveDistance = 20;
     if (touchPoint.y < minOffsetY) {
         //Cell is moving up
-        CGFloat moveDistance = (minOffsetY - touchPoint.y)/_edgeScrollRange*maxMoveDistance;
-        [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y - moveDistance) animated:NO];
-        _snapshot.center = CGPointMake(_snapshot.center.x, [self snapshotYToFitTargetY:_snapshot.center.y - moveDistance]);
+        CGFloat moveDistance = (minOffsetY - touchPoint.y)/_edgeScrollTriggerRange*_maxScrollSpeedPerFrame;
+        self.contentOffset = CGPointMake(self.contentOffset.x, [self limitContentOffsetY:self.contentOffset.y - moveDistance]);
+        _snapshot.center = CGPointMake(_snapshot.center.x, [self limitSnapshotCenterY:_snapshot.center.y - moveDistance]);
     }else if (touchPoint.y > maxOffsetY) {
         //Cell is moving down
-        CGFloat moveDistance = (touchPoint.y - maxOffsetY)/_edgeScrollRange*maxMoveDistance;
-        [self setContentOffset:CGPointMake(self.contentOffset.x, self.contentOffset.y + moveDistance) animated:NO];
-        _snapshot.center = CGPointMake(_snapshot.center.x, [self snapshotYToFitTargetY:_snapshot.center.y + moveDistance]);
+        CGFloat moveDistance = (touchPoint.y - maxOffsetY)/_edgeScrollTriggerRange*_maxScrollSpeedPerFrame;
+        self.contentOffset = CGPointMake(self.contentOffset.x, [self limitContentOffsetY:self.contentOffset.y + moveDistance]);
+        _snapshot.center = CGPointMake(_snapshot.center.x, [self limitSnapshotCenterY:_snapshot.center.y + moveDistance]);
     }
+
+    [self jx_gestureChanged:_longPressGesture];
 }
 
 - (void)jx_stopEdgeScroll
 {
-    if (_edgeScrollTimer) {
-        [_edgeScrollTimer invalidate];
-        _edgeScrollTimer = nil;
+    if (_edgeScrollLink) {
+        [_edgeScrollLink invalidate];
+        _edgeScrollLink = nil;
     }
 }
 
