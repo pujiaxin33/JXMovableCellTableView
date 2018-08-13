@@ -230,8 +230,15 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [_tempDataSource replaceObjectAtIndex:toIndexPath.section withObject:toArray];
 
 
-        if (_currentScrollSpeedPerFrame > 10) {
-            [self reloadRowsAtIndexPaths:@[fromIndexPath, toIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+        if (@available(iOS 11.0, *)) {
+            if (_currentScrollSpeedPerFrame > 10) {
+                [self reloadRowsAtIndexPaths:@[fromIndexPath, toIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }else {
+                [self beginUpdates];
+                [self moveRowAtIndexPath:toIndexPath toIndexPath:fromIndexPath];
+                [self moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+                [self endUpdates];
+            }
         }else {
             [self beginUpdates];
             [self moveRowAtIndexPath:toIndexPath toIndexPath:fromIndexPath];
