@@ -256,8 +256,23 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 }
 
 - (CGFloat)limitContentOffsetY:(CGFloat)targetOffsetY {
-    CGFloat minContentOffsetY = 0;
-    CGFloat maxContentOffsetY = self.contentSize.height - self.bounds.size.height;
+    CGFloat minContentOffsetY;
+    if (@available(iOS 11.0, *)) {
+        minContentOffsetY = -self.adjustedContentInset.top;
+    } else {
+        minContentOffsetY = -self.contentInset.top;
+    }
+
+    CGFloat maxContentOffsetY = minContentOffsetY;
+    CGFloat contentSizeHeight = self.contentSize.height;
+    if (@available(iOS 11.0, *)) {
+        contentSizeHeight += self.adjustedContentInset.top + self.adjustedContentInset.bottom;
+    } else {
+        contentSizeHeight += self.contentInset.top + self.contentInset.bottom;
+    }
+    if (contentSizeHeight > self.bounds.size.height) {
+        maxContentOffsetY += contentSizeHeight - self.bounds.size.height;
+    }
     return MIN(maxContentOffsetY, MAX(minContentOffsetY, targetOffsetY));
 }
 
