@@ -82,5 +82,17 @@ The JXMovableCellTableView which added a `UILongPressGestureRecognizer`. when ge
 ```
 
 # Installation
-  - Download git reposity, decompress zip.
-  - Drag JXMovableCellTableView files into your project.
+
+## Manual
+
+Download git reposity, decompress zip, drag JXMovableCellTableView.h&.m into your project.
+
+## CocoaPods
+
+```ruby
+target '<Your Target Name>' do
+    pod 'JXMovableCellTableView'
+end
+```
+You should run `pod repo udpate` before `pod install`
+
