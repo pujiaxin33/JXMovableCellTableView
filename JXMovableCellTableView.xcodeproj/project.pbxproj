@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		192AC59720EF67B8003F478C /* JXMovableCellTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 192AC59220EF67B8003F478C /* JXMovableCellTableView.m */; };
+		190F6A66213D452600870498 /* JXMovableCellTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F6A65213D452600870498 /* JXMovableCellTableView.m */; };
 		192AC59920EF67B8003F478C /* NeonLight.gif in Resources */ = {isa = PBXBuildFile; fileRef = 192AC59520EF67B8003F478C /* NeonLight.gif */; };
 		192AC59A20EF67B8003F478C /* EdgeScroll.gif in Resources */ = {isa = PBXBuildFile; fileRef = 192AC59620EF67B8003F478C /* EdgeScroll.gif */; };
 		192AC59C20EF6944003F478C /* Breath.gif in Resources */ = {isa = PBXBuildFile; fileRef = 192AC59B20EF6944003F478C /* Breath.gif */; };
@@ -39,8 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		192AC59120EF67B8003F478C /* JXMovableCellTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXMovableCellTableView.h; sourceTree = "<group>"; };
-		192AC59220EF67B8003F478C /* JXMovableCellTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXMovableCellTableView.m; sourceTree = "<group>"; };
+		190F6A64213D452600870498 /* JXMovableCellTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXMovableCellTableView.h; sourceTree = "<group>"; };
+		190F6A65213D452600870498 /* JXMovableCellTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXMovableCellTableView.m; sourceTree = "<group>"; };
 		192AC59520EF67B8003F478C /* NeonLight.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NeonLight.gif; sourceTree = "<group>"; };
 		192AC59620EF67B8003F478C /* EdgeScroll.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = EdgeScroll.gif; sourceTree = "<group>"; };
 		192AC59B20EF6944003F478C /* Breath.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Breath.gif; sourceTree = "<group>"; };
@@ -87,14 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		192AC59020EF67B8003F478C /* Classes */ = {
+		190F6A63213D452600870498 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				192AC59120EF67B8003F478C /* JXMovableCellTableView.h */,
-				192AC59220EF67B8003F478C /* JXMovableCellTableView.m */,
+				190F6A64213D452600870498 /* JXMovableCellTableView.h */,
+				190F6A65213D452600870498 /* JXMovableCellTableView.m */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		192AC59320EF67B8003F478C /* Gifs */ = {
 			isa = PBXGroup;
@@ -129,7 +129,7 @@
 		1945747E1C71D8480093838F /* JXMovableCellTableView */ = {
 			isa = PBXGroup;
 			children = (
-				192AC59020EF67B8003F478C /* Classes */,
+				190F6A63213D452600870498 /* Classes */,
 				192AC59320EF67B8003F478C /* Gifs */,
 				194574821C71D8480093838F /* AppDelegate.h */,
 				194574831C71D8480093838F /* AppDelegate.m */,
@@ -307,7 +307,7 @@
 			files = (
 				194574871C71D8480093838F /* ViewController.m in Sources */,
 				194574841C71D8480093838F /* AppDelegate.m in Sources */,
-				192AC59720EF67B8003F478C /* JXMovableCellTableView.m in Sources */,
+				190F6A66213D452600870498 /* JXMovableCellTableView.m in Sources */,
 				194574811C71D8480093838F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
