@@ -295,14 +295,14 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         CGFloat moveDistance = (minOffsetY - touchPoint.y)/_edgeScrollTriggerRange*_maxScrollSpeedPerFrame;
         _currentScrollSpeedPerFrame = moveDistance;
         self.contentOffset = CGPointMake(self.contentOffset.x, [self limitContentOffsetY:self.contentOffset.y - moveDistance]);
-        _snapshot.center = CGPointMake(_snapshot.center.x, [self limitSnapshotCenterY:_snapshot.center.y - moveDistance]);
     }else if (touchPoint.y > maxOffsetY) {
         //Cell is moving down
         CGFloat moveDistance = (touchPoint.y - maxOffsetY)/_edgeScrollTriggerRange*_maxScrollSpeedPerFrame;
         _currentScrollSpeedPerFrame = moveDistance;
         self.contentOffset = CGPointMake(self.contentOffset.x, [self limitContentOffsetY:self.contentOffset.y + moveDistance]);
-        _snapshot.center = CGPointMake(_snapshot.center.x, [self limitSnapshotCenterY:_snapshot.center.y + moveDistance]);
     }
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
 
     [self jx_gestureChanged:_longPressGesture];
 }
