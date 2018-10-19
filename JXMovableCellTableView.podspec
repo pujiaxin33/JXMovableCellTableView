@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "JXMovableCellTableView"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "The custom tableView which can start moving the cell with a long press gesture. "
 
   # This description is used to generate tags and improve search results.
