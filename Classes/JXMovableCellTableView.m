@@ -147,7 +147,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [self.delegate tableView:self customizeStartMovingAnimation:_snapshot fingerPoint:point];
     }else {
         [UIView animateWithDuration:kJXMovableCellAnimationTime animations:^{
-            _snapshot.center = CGPointMake(_snapshot.center.x, point.y);
+            self.snapshot.center = CGPointMake(_snapshot.center.x, point.y);
         }];
     }
 }
@@ -192,12 +192,12 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     }
     UITableViewCell *cell = [self cellForRowAtIndexPath:_selectedIndexPath];
     [UIView animateWithDuration:kJXMovableCellAnimationTime animations:^{
-        _snapshot.transform = CGAffineTransformIdentity;
-        _snapshot.frame = cell.frame;
+        self.snapshot.transform = CGAffineTransformIdentity;
+        self.snapshot.frame = cell.frame;
     } completion:^(BOOL finished) {
         cell.hidden = NO;
-        [_snapshot removeFromSuperview];
-        _snapshot = nil;
+        [self.snapshot removeFromSuperview];
+        self.snapshot = nil;
     }];
 }
 
