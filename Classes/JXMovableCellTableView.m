@@ -34,6 +34,10 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 {
     self = [super initWithFrame:frame style:style];
     if (self) {
+        self.rowHeight = 0;
+        self.estimatedRowHeight = 0;
+        self.estimatedSectionHeaderHeight = 0;
+        self.estimatedSectionFooterHeight = 0;
         [self jx_initData];
         [self jx_addGesture];
     }
