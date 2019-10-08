@@ -15,7 +15,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 @property (nonatomic, assign) CGFloat gestureMinimumPressDuration;
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 @property (nonatomic, strong) UIImageView *snapshot;
-@property (nonatomic, strong) NSMutableArray *tempDataSource;
+@property (nonatomic, strong) NSMutableArray <NSMutableArray *> *tempDataSource;
 @property (nonatomic, strong) CADisplayLink *edgeScrollLink;
 @property (nonatomic, assign) CGFloat currentScrollSpeedPerFrame;
 @end

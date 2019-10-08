@@ -11,7 +11,7 @@
 
 @interface ViewController ()<JXMovableCellTableViewDataSource, JXMovableCellTableViewDelegate>
 @property (nonatomic, strong) JXMovableCellTableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray <NSMutableArray *> *dataSource;
 @end
 
 @implementation ViewController
@@ -73,7 +73,7 @@
     return cell;
 }
 
-- (NSMutableArray *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView
+- (NSMutableArray <NSMutableArray *> *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView
 {
     return _dataSource;
 }

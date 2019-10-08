@@ -18,7 +18,7 @@
  *  The format of the data source:@[@[sectionOneArray].mutableCopy, @[sectionTwoArray].mutableCopy, ....].mutableCopy
  *  Even if there is only one section, the outermost layer needs to be wrapped in an array, such as:@[@[sectionOneArray].mutableCopy].mutableCopy
  */
-- (NSMutableArray *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView;
+- (NSMutableArray <NSMutableArray *> *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView;
 
 @end
 
