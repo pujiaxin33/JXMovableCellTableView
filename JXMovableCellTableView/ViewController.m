@@ -104,14 +104,15 @@
 }
 
 
-//- (void)tableView:(JXMovableCellTableView *)tableView customizeMovalbeCell:(UIImageView *)movableCellsnapshot {
-//    movableCellsnapshot.layer.shadowColor = [UIColor redColor].CGColor;
-//    movableCellsnapshot.layer.masksToBounds = NO;
-//    movableCellsnapshot.layer.cornerRadius = 0;
-//    movableCellsnapshot.layer.shadowOffset = CGSizeMake(0, 0);
-//    movableCellsnapshot.layer.shadowOpacity = 0.4;
-//    movableCellsnapshot.layer.shadowRadius = 10;
-//}
+- (void)tableView:(JXMovableCellTableView *)tableView customizeMovalbeCell:(UIImageView *)movableCellsnapshot { 
+    movableCellsnapshot.layer.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.5].CGColor;
+    movableCellsnapshot.layer.masksToBounds = NO;
+    movableCellsnapshot.layer.cornerRadius = 10;
+    movableCellsnapshot.layer.shadowOffset = CGSizeMake(0, 0);
+    movableCellsnapshot.layer.shadowOpacity = 1.0;
+    movableCellsnapshot.layer.shadowRadius = 10;
+    
+}
 
 //- (void)tableView:(JXMovableCellTableView *)tableView customizeStartMovingAnimation:(UIImageView *)movableCellsnapshot fingerPoint:(CGPoint)fingerPoint {
 //    //move to finger
