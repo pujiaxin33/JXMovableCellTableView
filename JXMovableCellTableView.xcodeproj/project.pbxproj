@@ -19,6 +19,8 @@
 		1945748F1C71D8480093838F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1945748D1C71D8480093838F /* LaunchScreen.storyboard */; };
 		1945749A1C71D8480093838F /* JXMovableCellTableViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574991C71D8480093838F /* JXMovableCellTableViewTests.m */; };
 		194574A51C71D8480093838F /* JXMovableCellTableViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 194574A41C71D8480093838F /* JXMovableCellTableViewUITests.m */; };
+		94ABB2DD24C7E77700947D65 /* JXTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABB2DA24C7E77700947D65 /* JXTableViewCell.m */; };
+		94ABB2DE24C7E77700947D65 /* JXTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94ABB2DC24C7E77700947D65 /* JXTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,9 @@
 		194574A01C71D8480093838F /* JXMovableCellTableViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JXMovableCellTableViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		194574A41C71D8480093838F /* JXMovableCellTableViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JXMovableCellTableViewUITests.m; sourceTree = "<group>"; };
 		194574A61C71D8480093838F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94ABB2DA24C7E77700947D65 /* JXTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTableViewCell.m; sourceTree = "<group>"; };
+		94ABB2DB24C7E77700947D65 /* JXTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTableViewCell.h; sourceTree = "<group>"; };
+		94ABB2DC24C7E77700947D65 /* JXTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JXTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +138,9 @@
 				192AC59320EF67B8003F478C /* Gifs */,
 				194574821C71D8480093838F /* AppDelegate.h */,
 				194574831C71D8480093838F /* AppDelegate.m */,
+				94ABB2DB24C7E77700947D65 /* JXTableViewCell.h */,
+				94ABB2DA24C7E77700947D65 /* JXTableViewCell.m */,
+				94ABB2DC24C7E77700947D65 /* JXTableViewCell.xib */,
 				194574851C71D8480093838F /* ViewController.h */,
 				194574861C71D8480093838F /* ViewController.m */,
 				194574881C71D8480093838F /* Main.storyboard */,
@@ -255,6 +263,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -281,6 +290,7 @@
 				192AC59920EF67B8003F478C /* NeonLight.gif in Resources */,
 				1945748C1C71D8480093838F /* Assets.xcassets in Resources */,
 				1945748A1C71D8480093838F /* Main.storyboard in Resources */,
+				94ABB2DE24C7E77700947D65 /* JXTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +317,7 @@
 			files = (
 				194574871C71D8480093838F /* ViewController.m in Sources */,
 				194574841C71D8480093838F /* AppDelegate.m in Sources */,
+				94ABB2DD24C7E77700947D65 /* JXTableViewCell.m in Sources */,
 				190F6A66213D452600870498 /* JXMovableCellTableView.m in Sources */,
 				194574811C71D8480093838F /* main.m in Sources */,
 			);

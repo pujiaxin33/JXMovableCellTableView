@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "JXMovableCellTableView.h"
+#import "JXTableViewCell.h"
 
 @interface ViewController ()<JXMovableCellTableViewDataSource, JXMovableCellTableViewDelegate>
 @property (nonatomic, strong) JXMovableCellTableView *tableView;
@@ -38,8 +39,10 @@
     _tableView = [[JXMovableCellTableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.notCanMoveAnimation = NO;
     [self.view addSubview:_tableView];
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([JXTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([JXTableViewCell class])];
+
     _tableView.longPressGesture.minimumPressDuration = 1.0;
 }
 
@@ -62,14 +65,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
+    return 100;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text = _dataSource[indexPath.section][indexPath.row];
+    JXTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([JXTableViewCell class]) forIndexPath:indexPath];
     return cell;
 }
 
@@ -78,11 +79,17 @@
     return _dataSource;
 }
 
+//自定义拖拽的view
+- (UIView *)snapshotViewWithCell:(JXTableViewCell *)cell{
+    return cell.bgView;
+}
+
 #pragma mark - JXMovableCellTableViewDelegate
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1 && indexPath.row == 2) {
+    //第二组禁止拖拽
+    if (indexPath.section == 1) {
         return NO;
     }
 
@@ -92,6 +99,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+
+
+- (void)tableView:(JXMovableCellTableView *)tableView willMoveCellAtIndexPath:(NSIndexPath *)indexPath{
+ //开始拖拽
+}
+
+- (void)tableView:(JXMovableCellTableView *)tableView endMoveCellAtIndexPath:(NSIndexPath *)indexPath{
+//结束拖拽
 }
 
 - (void)tableView:(JXMovableCellTableView *)tableView customizeMovalbeCell:(UIImageView *)movableCellsnapshot {
