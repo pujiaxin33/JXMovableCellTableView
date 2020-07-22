@@ -143,7 +143,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [self.generator impactOccurred];
     }
     
-    if (self.dataSource && [self.dataSource snapshotViewWithCell:cell]) {
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(snapshotViewWithCell:)]) {
         UIView *snapView = [self.dataSource snapshotViewWithCell:cell];
          _snapshot = [self jx_snapshotViewWithInputView:snapView];
     }else{
