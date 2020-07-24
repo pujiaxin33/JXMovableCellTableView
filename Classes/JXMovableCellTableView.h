@@ -92,4 +92,7 @@
 /// 当cell不允许被移动的时候，长按时是否提示。默认为YES。
 @property (nonatomic, assign) BOOL canHintWhenCannotMove;
 
+/// 是否允许震动反馈。默认为NO。
+@property (nonatomic, assign) BOOL canFeedback NS_AVAILABLE_IOS(10_0);
+
 @end

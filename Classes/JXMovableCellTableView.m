@@ -18,7 +18,6 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 @property (nonatomic, strong) NSMutableArray <NSMutableArray *> *tempDataSource;
 @property (nonatomic, strong) CADisplayLink *edgeScrollLink;
 @property (nonatomic, assign) CGFloat currentScrollSpeedPerFrame;
-//触感反馈 只支持iOS 10以上
 @property (nonatomic, strong) UIImpactFeedbackGenerator *generator NS_AVAILABLE_IOS(10_0);
 
 @end
@@ -41,7 +40,9 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         self.estimatedRowHeight = 0;
         self.estimatedSectionHeaderHeight = 0;
         self.estimatedSectionFooterHeight = 0;
-        self.generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
+        if (@available(iOS 10.0, *)) {
+            self.generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
+        }
         [self jx_initData];
         [self jx_addGesture];
     }
@@ -71,6 +72,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     _edgeScrollTriggerRange = 150.f;
     _maxScrollSpeedPerFrame = 20;
     _canHintWhenCannotMove = YES;
+    _canFeedback = NO;
 }
 
 #pragma mark Gesture
@@ -146,8 +148,10 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     _selectedIndexPath = selectedIndexPath;
 
     if (@available(iOS 10.0, *)) {
-        [self.generator prepare];
-        [self.generator impactOccurred];
+        if (self.canFeedback) {
+            [self.generator prepare];
+            [self.generator impactOccurred];
+        }
     }
     
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(snapshotViewWithCell:)]) {
@@ -244,8 +248,10 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 
 - (void)jx_updateDataSourceAndCellFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
     if (@available(iOS 10.0, *)) {
-        [self.generator prepare];
-        [self.generator impactOccurred];
+        if (self.canFeedback) {
+            [self.generator prepare];
+            [self.generator impactOccurred];
+        }
     }
     
     if ([self numberOfSections] == 1) {
