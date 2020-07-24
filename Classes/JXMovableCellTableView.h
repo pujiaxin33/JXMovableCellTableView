@@ -11,10 +11,6 @@
 
 @protocol JXMovableCellTableViewDataSource <UITableViewDataSource>
 
-@optional
-///返回自定义截图的部分
-- (UIView *)snapshotViewWithCell:(UITableViewCell *)cell;
-
 @required
 /**
  *  Get the data source array of the tableView, each time you start the call to get the latest data source.
@@ -25,6 +21,9 @@
  */
 - (NSMutableArray <NSMutableArray *> *)dataSourceArrayInTableView:(JXMovableCellTableView *)tableView;
 
+@optional
+///返回自定义截图的部分
+- (UIView *)snapshotViewWithCell:(UITableViewCell *)cell;
 
 @end
 
@@ -48,7 +47,7 @@
 
 /**
  *  The user tries to move a cell that is not allowed to move. You can make some prompts to inform the user.
- *  尝试长按拖拽不能移动的cell 这个代理方法可以加个toast或者其他处理 与设置`notCanMoveAnimation`不冲突
+ *  尝试长按拖拽不能移动的cell 这个代理方法可以加个toast或者其他处理 与设置`canHintWhenCannotMove`不冲突
  */
 - (void)tableView:(JXMovableCellTableView *)tableView tryMoveUnmovableCellAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -89,7 +88,8 @@
  */
 @property (nonatomic, assign) CGFloat maxScrollSpeedPerFrame;
 
-//默认YES 不让拖拽的时候有一个震动动画  设置NO就不加该动画了
-@property (nonatomic, assign) BOOL notCanMoveAnimation;
+
+/// 当cell不允许被移动的时候，长按时是否提示。默认为YES。
+@property (nonatomic, assign) BOOL canHintWhenCannotMove;
 
 @end

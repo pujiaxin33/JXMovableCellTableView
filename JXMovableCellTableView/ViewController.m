@@ -41,7 +41,7 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.notCanMoveAnimation = NO;
+//    _tableView.canHintWhenCannotMove = NO;
     [self.view addSubview:_tableView];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([JXTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([JXTableViewCell class])];
 

@@ -41,6 +41,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         self.estimatedRowHeight = 0;
         self.estimatedSectionHeaderHeight = 0;
         self.estimatedSectionFooterHeight = 0;
+        self.generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
         [self jx_initData];
         [self jx_addGesture];
     }
@@ -57,13 +58,19 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     return self;
 }
 
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    if (newSuperview == nil) {
+        [self jx_stopEdgeScroll];
+    }
+}
+
 - (void)jx_initData
 {
     _gestureMinimumPressDuration = 1.f;
     _canEdgeScroll = YES;
     _edgeScrollTriggerRange = 150.f;
     _maxScrollSpeedPerFrame = 20;
-    _notCanMoveAnimation = YES;
+    _canHintWhenCannotMove = YES;
 }
 
 #pragma mark Gesture
@@ -112,7 +119,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(tableView:canMoveRowAtIndexPath:)]) {
         if (![self.dataSource tableView:self canMoveRowAtIndexPath:selectedIndexPath]) {
             //It is not allowed to move the cell, then shake it to prompt the user.
-            if (self.notCanMoveAnimation) {
+            if (self.canHintWhenCannotMove) {
                 CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
                 shakeAnimation.duration = 0.25;
                 shakeAnimation.values = @[@(-20), @(20), @(-10), @(10), @(0)];
@@ -340,13 +347,6 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [_edgeScrollLink invalidate];
         _edgeScrollLink = nil;
     }
-}
-
-- (UIImpactFeedbackGenerator *)generator {
-    if (!_generator) {
-        _generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
-    }
-    return _generator;
 }
 
 @end
