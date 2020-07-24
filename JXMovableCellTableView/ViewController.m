@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-#import "JXMovableCellTableView.h"
+#import "JXMovableCellTableView.h" 
+#import "JXTableViewCell.h"
 
 @interface ViewController ()<JXMovableCellTableViewDataSource, JXMovableCellTableViewDelegate>
 @property (nonatomic, strong) JXMovableCellTableView *tableView;
@@ -36,10 +37,14 @@
     }
     
     _tableView = [[JXMovableCellTableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.notCanMoveAnimation = NO;
     [self.view addSubview:_tableView];
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([JXTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([JXTableViewCell class])];
+
     _tableView.longPressGesture.minimumPressDuration = 1.0;
 }
 
@@ -50,7 +55,6 @@
 }
 
 #pragma mark - JXMovableCellTableViewDataSource
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return _dataSource.count;
@@ -62,14 +66,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
+    return 100;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text = _dataSource[indexPath.section][indexPath.row];
+    JXTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([JXTableViewCell class]) forIndexPath:indexPath];
+    cell.indexLabel.text = self.dataSource[indexPath.section][indexPath.row];
     return cell;
 }
 
@@ -78,11 +81,17 @@
     return _dataSource;
 }
 
+//自定义拖拽的view
+- (UIView *)snapshotViewWithCell:(JXTableViewCell *)cell{
+    return cell.bgView;
+}
+
 #pragma mark - JXMovableCellTableViewDelegate
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1 && indexPath.row == 2) {
+    //第二组禁止拖拽
+    if (indexPath.section == 1) {
         return NO;
     }
 
@@ -94,20 +103,22 @@
     NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
-- (void)tableView:(JXMovableCellTableView *)tableView customizeMovalbeCell:(UIImageView *)movableCellsnapshot {
-    movableCellsnapshot.layer.shadowColor = [UIColor redColor].CGColor;
+
+- (void)tableView:(JXMovableCellTableView *)tableView customizeMovalbeCell:(UIImageView *)movableCellsnapshot { 
+    movableCellsnapshot.layer.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.5].CGColor;
     movableCellsnapshot.layer.masksToBounds = NO;
-    movableCellsnapshot.layer.cornerRadius = 0;
+    movableCellsnapshot.layer.cornerRadius = 10;
     movableCellsnapshot.layer.shadowOffset = CGSizeMake(0, 0);
-    movableCellsnapshot.layer.shadowOpacity = 0.4;
+    movableCellsnapshot.layer.shadowOpacity = 1.0;
     movableCellsnapshot.layer.shadowRadius = 10;
+    
 }
 
-- (void)tableView:(JXMovableCellTableView *)tableView customizeStartMovingAnimation:(UIImageView *)movableCellsnapshot fingerPoint:(CGPoint)fingerPoint {
-    //move to finger
-    [UIView animateWithDuration:0.25 animations:^{
-        movableCellsnapshot.center = CGPointMake(movableCellsnapshot.center.x, fingerPoint.y);
-    }];
+//- (void)tableView:(JXMovableCellTableView *)tableView customizeStartMovingAnimation:(UIImageView *)movableCellsnapshot fingerPoint:(CGPoint)fingerPoint {
+//    //move to finger
+//    [UIView animateWithDuration:0.25 animations:^{
+//        movableCellsnapshot.center = CGPointMake(movableCellsnapshot.center.x, fingerPoint.y);
+//    }];
 
     //scale big
 //    [UIView animateWithDuration:0.25 animations:^{
@@ -135,7 +146,7 @@
 //    [movableCellsnapshot.layer addAnimation:colorAnimation forKey:@"color"];
 
 
-}
+//}
 
 
 @end

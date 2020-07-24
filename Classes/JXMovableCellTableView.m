@@ -18,6 +18,9 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
 @property (nonatomic, strong) NSMutableArray <NSMutableArray *> *tempDataSource;
 @property (nonatomic, strong) CADisplayLink *edgeScrollLink;
 @property (nonatomic, assign) CGFloat currentScrollSpeedPerFrame;
+//触感反馈 只支持iOS 10以上
+@property (nonatomic, strong) UIImpactFeedbackGenerator *generator NS_AVAILABLE_IOS(10_0);
+
 @end
 
 @implementation JXMovableCellTableView
@@ -60,6 +63,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     _canEdgeScroll = YES;
     _edgeScrollTriggerRange = 150.f;
     _maxScrollSpeedPerFrame = 20;
+    _notCanMoveAnimation = YES;
 }
 
 #pragma mark Gesture
@@ -108,10 +112,12 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(tableView:canMoveRowAtIndexPath:)]) {
         if (![self.dataSource tableView:self canMoveRowAtIndexPath:selectedIndexPath]) {
             //It is not allowed to move the cell, then shake it to prompt the user.
-            CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
-            shakeAnimation.duration = 0.25;
-            shakeAnimation.values = @[@(-20), @(20), @(-10), @(10), @(0)];
-            [cell.layer addAnimation:shakeAnimation forKey:@"shake"];
+            if (self.notCanMoveAnimation) {
+                CAKeyframeAnimation *shakeAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
+                shakeAnimation.duration = 0.25;
+                shakeAnimation.values = @[@(-20), @(20), @(-10), @(10), @(0)];
+                [cell.layer addAnimation:shakeAnimation forKey:@"shake"];
+            }
 
             if (self.delegate && [self.delegate respondsToSelector:@selector(tableView:tryMoveUnmovableCellAtIndexPath:)]) {
                 [self.delegate tableView:self tryMoveUnmovableCellAtIndexPath:selectedIndexPath];
@@ -132,7 +138,18 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     }
     _selectedIndexPath = selectedIndexPath;
 
-    _snapshot = [self jx_snapshotViewWithInputView:cell];
+    if (@available(iOS 10.0, *)) {
+        [self.generator prepare];
+        [self.generator impactOccurred];
+    }
+    
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(snapshotViewWithCell:)]) {
+        UIView *snapView = [self.dataSource snapshotViewWithCell:cell];
+         _snapshot = [self jx_snapshotViewWithInputView:snapView];
+    }else{
+        _snapshot = [self jx_snapshotViewWithInputView:cell];
+    }
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(tableView:customizeMovalbeCell:)]) {
         [self.delegate tableView:self customizeMovalbeCell:_snapshot];
     }else {
@@ -143,7 +160,8 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         _snapshot.layer.shadowOpacity = 0.4;
         _snapshot.layer.shadowRadius = 5;
     }
-    _snapshot.frame = cell.frame;
+    
+    _snapshot.frame = CGRectMake((cell.frame.size.width - _snapshot.frame.size.width)/2.0f, cell.frame.origin.y + (cell.frame.size.height - _snapshot.frame.size.height)/2.0, _snapshot.frame.size.width, _snapshot.frame.size.height);
     [self addSubview:_snapshot];
 
     cell.hidden = YES;
@@ -197,7 +215,7 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     UITableViewCell *cell = [self cellForRowAtIndexPath:_selectedIndexPath];
     [UIView animateWithDuration:kJXMovableCellAnimationTime animations:^{
         self.snapshot.transform = CGAffineTransformIdentity;
-        self.snapshot.frame = cell.frame;
+        self.snapshot.frame = CGRectMake((cell.frame.size.width - _snapshot.frame.size.width)/2.0f, cell.frame.origin.y + (cell.frame.size.height - _snapshot.frame.size.height)/2.0, _snapshot.frame.size.width, _snapshot.frame.size.height);
     } completion:^(BOOL finished) {
         cell.hidden = NO;
         [self.snapshot removeFromSuperview];
@@ -217,8 +235,12 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
     return snapshot;
 }
 
-- (void)jx_updateDataSourceAndCellFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
+- (void)jx_updateDataSourceAndCellFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
+    if (@available(iOS 10.0, *)) {
+        [self.generator prepare];
+        [self.generator impactOccurred];
+    }
+    
     if ([self numberOfSections] == 1) {
         //only one section
         [_tempDataSource[fromIndexPath.section] exchangeObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
@@ -318,6 +340,13 @@ static NSTimeInterval kJXMovableCellAnimationTime = 0.25;
         [_edgeScrollLink invalidate];
         _edgeScrollLink = nil;
     }
+}
+
+- (UIImpactFeedbackGenerator *)generator {
+    if (!_generator) {
+        _generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
+    }
+    return _generator;
 }
 
 @end
